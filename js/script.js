@@ -220,7 +220,34 @@ if (distance < 0) {
   fireConfetti();
   clearInterval(countdownTimer);
   return;
+
 }
+
+    if (distance < 0) {
+  // Create a NEW div that floats over everything
+  const celebrationDiv = document.createElement("div");
+  celebrationDiv.innerHTML = `
+    <div style="
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px gold;
+      z-index: 9999;
+      text-align: center;
+    ">
+      <h2 style="color: #2563eb;">🎉 WE GRADUATED! 🎉</h2>
+      <p>${new Date().toLocaleDateString()}</p>
+    </div>
+  `;
+  
+  document.body.appendChild(celebrationDiv);
+  fireConfetti();
+  clearInterval(countdownTimer);
+    }
     //  Image Lazy Loading
     const lazyImages = document.querySelectorAll('img[data-src]');
 
