@@ -169,25 +169,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Countdown section
     function updateCountdown() {
-        const gradDate = new Date("2025-07-26").getTime();
-        const now = new Date().getTime();
-        const distance = gradDate - now;
+  const gradDate = new Date("2025-07-26").getTime();
+  const now = new Date().getTime();
+  const distance = gradDate - now;
 
-        document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-        document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
-          // Trigger confetti when countdown hits zero
+  // After graduation (positive celebration)
   if (distance < 0) {
-    document.getElementById("countdown").innerHTML = "WE MADE IT!";
-    fireConfetti(); // Call the confetti function
-    clearInterval(countdownTimer); // Stop the countdown
+    const daysPassed = Math.floor(Math.abs(distance) / (1000 * 60 * 60 * 24));
+    document.getElementById("countdown").innerHTML = `
+      <div class="celebration">
+        <h2>WE MADE IT! 🎓</h2>
+        <p>Alumni for ${daysPassed} day${daysPassed !== 1 ? 's' : ''}</p>
+      </div>
+    `;
+    fireConfetti();
+    clearInterval(countdownTimer);
+    return;
   }
-    }
-    const countdownTimer = setInterval(updateCountdown, 1000);
-    setInterval(updateCountdown, 1000);
-    updateCountdown(); // Initial call
 
+  // Before graduation (normal countdown)
+  document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+  document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+}
+
+const countdownTimer = setInterval(updateCountdown, 1000);
+updateCountdown(); // Initial call
+    
     //  Image Lazy Loading
     const lazyImages = document.querySelectorAll('img[data-src]');
 
