@@ -196,7 +196,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const countdownTimer = setInterval(updateCountdown, 1000);
 updateCountdown(); // Initial call
-    
+    // Replace your celebration block with this:
+if (distance < 0) {
+  const daysPassed = Math.floor(Math.abs(distance) / (1000 * 60 * 60 * 24));
+  
+  // Nuke and rebuild the countdown div
+  const countdownEl = document.getElementById("countdown");
+  countdownEl.innerHTML = `
+    <div style="
+      text-align: center;
+      animation: pulse 1.5s infinite;
+      padding: 20px;
+    ">
+      <h2 style="font-size: 2rem; color: #2563eb; margin: 0;">WE MADE IT! 🎓</h2>
+      <p style="font-size: 1.2rem;">Alumni for ${daysPassed} day${daysPassed !== 1 ? 's' : ''}</p>
+    </div>
+  `;
+  
+  // Force show it (in case CSS is hiding it)
+  countdownEl.style.display = "block";
+  countdownEl.style.opacity = "1";
+  
+  fireConfetti();
+  clearInterval(countdownTimer);
+  return;
+}
     //  Image Lazy Loading
     const lazyImages = document.querySelectorAll('img[data-src]');
 
